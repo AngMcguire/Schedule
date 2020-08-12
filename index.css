@@ -1,0 +1,29 @@
+*{
+  margin:0pc;
+  padding:0px;
+  background-color: #e3e3e3;
+}
+body{
+  min-height: 600px;
+}
+.container{
+  display: block;
+  width:90%;
+  margin-top: auto;
+  margin-bottom: auto;
+  height:auto;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
+div{
+  text-align: center;
+  justify-content: center;
+  padding:10px;
+}
+h1{
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  min-width: fit-content;
+}
