@@ -1,31 +1,119 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175213971-1">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Ang!</title>
+    <h1>Contact Me!</h1>
 
-  gtag('config', 'UA-175213971-1');
-</script>
-    <link href="index.css" rel="stylesheet"></link>
-    <meta charset="utf-8">
-    <title>Contact Angelina</title>
-  </head>
-  <body>
-    <div class="container">
-    <h1>Schedule a tutor session with Ang!</h1>
-    <div>Ooops- Online Scheduling is not fully operational yet! SORRY!</div>
-    <div>Under construction at the moment-- Hopefully soon I'll be able to schedule meetings right here!</div>
-      <div>Please Call or Email and I will answer all your questions and we can set up a time!</div>
-      <div>Available for phone calls 8am to 8pm Pacific but feel free to email any time. I will return your calls and emails as soon as possible!</div>
-      <div>Just say "Hi!" and include your name and the subject/material you need covered.</div>
-      <div>MCGUIREA18@gmail.com</div>
-      <div>(201) 376-2727</div>
-      <a href="https://angmcguire.github.io">Back Home<a/>
-      </div>
-  </body>
+    <style>
+
+    html{
+      padding: auto;
+      text-align: center;
+      color:#FF9900;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    div{
+      padding-bottom: 10px;
+    }
+    h1{
+      color: #FF9900;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+
+        background-color: #232F3E;
+        display: block;
+        margin: 0 auto;
+        padding-top: 20px;
+        width: 300px;
+        }
+    label, button {
+        color: #FF9900;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin: auto;
+        padding: auto;
+        }
+     input {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin: auto;
+        width: 300px;
+        }
+
+      .note{
+          color: #232F3E;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 20px;
+          margin: auto;
+          width: 300px;
+          height:300px;
+        }
+    </style>
+
+    <script>
+
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (firstName,lastName,phone,email,note)=>{
+
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            var pack={
+              "firstName":firstName,
+              "lastName":lastName,
+              "phone":phone,
+              "email":email,
+              "note":note
+            }
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify(pack);
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://ik0d2ikzf6.execute-api.us-east-2.amazonaws.com/Dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+
+            document.getElementById('lName').value="";
+            document.getElementById('fName').value="";
+            document.getElementById('email').value="";
+            document.getElementById('phone').value="";
+            document.getElementById('note').value="";
+
+
+        }
+    </script>
+
+</head>
+<body>
+  <div>Enter in your contact information and I'll get back to you ASAP!</div>
+    <form>
+        <label>First Name</label>
+        <input type="text" id="fName">
+        <label>Last Name</label>
+        <input type="text" id="lName">
+        <label>Phone Number</label>
+        <input type="text" id="phone">
+        <label>Email</label>
+        <input type="text" id="email">
+        <label >Note</label>
+        <textarea class="note" type="text" id="note"></textarea>
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="callAPI(document.getElementById('fName').value,
+                                              document.getElementById('lName').value,
+                                              document.getElementById('phone').value,
+                                              document.getElementById('email').value,
+                                              document.getElementById('note').value)">Send</button>
+    </form>
+</body>
 </html>
